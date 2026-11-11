@@ -1108,31 +1108,39 @@ footer p + p {
 
 <!-- JAVASCRIPT -->
 
+
 <script>
+const SITE_BASE = "https://noel200305.github.io/noel/";
+
+// MOBILE MENU
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
-menuBtn.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("active");
-    menuBtn.setAttribute("aria-expanded", isOpen);
-    menuBtn.textContent = isOpen ? "✕" : "☰";
-});
-
-document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-        menuBtn.setAttribute("aria-expanded", "false");
-        menuBtn.textContent = "☰";
+if (menuBtn && navLinks) {
+    menuBtn.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("active");
+        menuBtn.textContent = open ? "✕" : "☰";
+        menuBtn.setAttribute("aria-expanded", open);
     });
-});
 
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+            menuBtn.textContent = "☰";
+            menuBtn.setAttribute("aria-expanded", "false");
+        });
+    });
+}
+
+// COPYRIGHT
 document.getElementById("year").textContent =
     new Date().getFullYear();
-    
+
+// POWERPOINT FILES
 const presentations = {
     presentation1: {
         title: "Intermediate HTML & CSS",
-        file: "intermediate-html-css.pptx"
+        file: "intermediate.pptx"
     },
     presentation2: {
         title: "Advanced HTML & CSS",
@@ -1144,15 +1152,12 @@ const presentations = {
     }
 };
 
+// OPEN POWERPOINT
 function openPresentation(id) {
     const item = presentations[id];
-
     if (!item) return;
 
-    const fileURL = new URL(
-        item.file,
-        window.location.href
-    ).href;
+    const fileURL = new URL(item.file, SITE_BASE).href;
 
     const viewerURL =
         "https://view.officeapps.live.com/op/embed.aspx?src=" +
@@ -1163,7 +1168,9 @@ function openPresentation(id) {
 
     document.getElementById("pptFrame").src = viewerURL;
 
-    const viewer = document.getElementById("presentationViewer");
+    const viewer =
+        document.getElementById("presentationViewer");
+
     viewer.hidden = false;
 
     viewer.scrollIntoView({
@@ -1172,53 +1179,52 @@ function openPresentation(id) {
     });
 }
 
+// CLOSE POWERPOINT
 function closePresentation() {
-    const viewer = document.getElementById("presentationViewer");
-
-    viewer.hidden = true;
-
     document.getElementById("pptFrame").src = "";
+    document.getElementById("presentationViewer").hidden = true;
 }
 
-// FULL SCREEN VIDEO PLAYER
-
+// VIDEO PLAYER
 const videoModal = document.getElementById("videoModal");
 const mainVideo = document.getElementById("mainVideo");
-const videoTitle = document.getElementById("videoTitle");
 
 function playVideo(file, title) {
-
     mainVideo.pause();
 
-    mainVideo.src = "./" + file;
-    videoTitle.textContent = title;
+    mainVideo.src = new URL(file, SITE_BASE).href;
+
+    document.getElementById("videoTitle").textContent = title;
 
     videoModal.hidden = false;
-
     document.body.style.overflow = "hidden";
 
     mainVideo.load();
 
-    mainVideo.play().catch(() => {
-        // User can press Play if autoplay is blocked.
-    });
+    mainVideo.play().catch(() => {});
 }
 
+// CLOSE VIDEO
 function closeVideo() {
-
     mainVideo.pause();
     mainVideo.removeAttribute("src");
     mainVideo.load();
 
     videoModal.hidden = true;
-
     document.body.style.overflow = "";
 }
 
-// Close with Escape key
+// KEYBOARD ESCAPE
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        if (!videoModal.hidden) closeVideo();
 
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape" && !videoModal.hidden) {
-        closeVideo();
+        if (!document.getElementById("presentationViewer").hidden) {
+            closePresentation();
+        }
     }
 });
+</script>
+
+</body>
+</html>
