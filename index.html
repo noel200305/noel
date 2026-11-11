@@ -562,60 +562,138 @@ footer p + p {
     }
 }
  
-/* VIDEO PRESENTATIONS */
 
-#videos .video-grid {
+/* VIDEO PRESENTATION CARDS */
+
+.video-folder-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 25px;
+    gap: 12px;
+    margin-top: 25px;
 }
 
-.video-card {
-    background: #111827;
-    border: 1px solid rgba(255,255,255,.09);
-    border-radius: 18px;
-    padding: 25px;
-    transition: .3s;
+.video-folder-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px;
+    min-height: 80px;
+    background: #202b40;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: .25s;
 }
 
-.video-card:hover {
+.video-folder-card:hover {
+    background: #293750;
     border-color: #8b5cf6;
-    transform: translateY(-4px);
+    transform: translateY(-2px);
 }
 
-.video-number {
-    color: #8b5cf6;
-    font-weight: 700;
-    font-size: 13px;
-    margin-bottom: 15px;
-}
-
-.video-card h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.video-card p {
-    color: #9ca3af;
+.video-folder-card strong {
     font-size: 14px;
-    margin-bottom: 20px;
 }
 
-.video-card video {
-    display: block;
+.play-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #a78bfa;
+    color: #111827;
+    font-size: 11px;
+}
+
+/* FULL SCREEN VIDEO MODAL */
+
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
+    background: #05060b;
+    display: flex;
+    flex-direction: column;
+}
+
+.video-modal[hidden] {
+    display: none !important;
+}
+
+.video-modal-header {
+    min-height: 65px;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    background: #111827;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.video-modal-header h3 {
+    color: white;
+    font-size: 17px;
+}
+
+.close-video {
+    background: #27334a;
+    border: 1px solid #475569;
+    color: white;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.close-video:hover {
+    background: #8b5cf6;
+}
+
+.video-screen {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.video-screen video {
+    width: 100%;
+    height: 100%;
+    max-width: 1500px;
+    max-height: 100%;
     object-fit: contain;
     background: #000;
-    border-radius: 12px;
 }
 
-@media(max-width:750px) {
-    #videos .video-grid {
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    .video-folder-grid {
         grid-template-columns: 1fr;
     }
+
+    .video-modal-header {
+        padding: 10px 15px;
+    }
+
+    .video-screen {
+        padding: 5px;
+    }
 }
-   
+
 
 </style>
 </head>
@@ -867,8 +945,7 @@ footer p + p {
 </div>
 </section>
 
-    
-<!-- VIDEO FOLDER SECTION -->
+<!-- VIDEO PRESENTATIONS -->
 
 <section id="videos">
 <div class="container">
@@ -876,82 +953,61 @@ footer p + p {
     <div class="section-heading">
         <span class="small-title">MY VIDEO COLLECTION</span>
         <h2>Video Presentations</h2>
-        <p>Open a folder to watch my academic presentations.</p>
+        <p>Click a presentation to watch it in full screen.</p>
     </div>
 
-    <div class="folder-grid">
+    <div class="video-folder-grid">
 
-        <!-- FOLDER 01 -->
+        <button class="video-folder-card"
+            onclick="playVideo('intermediate.mp4', 'Intermediate HTML & CSS')">
+            <span class="play-icon">▶</span>
+            <strong>Intermediate HTML & CSS</strong>
+        </button>
 
-        <details class="video-folder">
-            <summary>
-                <span class="folder-icon">📁</span>
-                <span class="folder-info">
-                    <strong>Intermediate HTML & CSS</strong>
-                    <small>Video Presentation 01</small>
-                </span>
-                <span class="folder-arrow">＋</span>
-            </summary>
+        <button class="video-folder-card"
+            onclick="playVideo('advanced-html-css.mp4', 'Advanced HTML & CSS')">
+            <span class="play-icon">▶</span>
+            <strong>Advanced HTML & CSS</strong>
+        </button>
 
-            <div class="folder-content">
-                <h3>Intermediate HTML & CSS</h3>
-
-                <video controls preload="metadata" playsinline>
-                    <source src="./intermediate.mp4" type="video/mp4">
-                    Your browser does not support video playback.
-                </video>
-            </div>
-        </details>
-
-        <!-- FOLDER 02 -->
-
-        <details class="video-folder">
-            <summary>
-                <span class="folder-icon">📁</span>
-                <span class="folder-info">
-                    <strong>Advanced HTML & CSS</strong>
-                    <small>Video Presentation 02</small>
-                </span>
-                <span class="folder-arrow">＋</span>
-            </summary>
-
-            <div class="folder-content">
-                <h3>Advanced HTML & CSS</h3>
-
-                <video controls preload="metadata" playsinline>
-                    <source src="./advanced-html-css.mp4" type="video/mp4">
-                    Your browser does not support video playback.
-                </video>
-            </div>
-        </details>
-
-        <!-- FOLDER 03 -->
-
-        <details class="video-folder">
-            <summary>
-                <span class="folder-icon">📁</span>
-                <span class="folder-info">
-                    <strong>JavaScript</strong>
-                    <small>Video Presentation 03</small>
-                </span>
-                <span class="folder-arrow">＋</span>
-            </summary>
-
-            <div class="folder-content">
-                <h3>JavaScript</h3>
-
-                <video controls preload="metadata" playsinline>
-                    <source src="./javascript.mp4" type="video/mp4">
-                    Your browser does not support video playback.
-                </video>
-            </div>
-        </details>
+        <button class="video-folder-card"
+            onclick="playVideo('javascript.mp4', 'JavaScript')">
+            <span class="play-icon">▶</span>
+            <strong>JavaScript</strong>
+        </button>
 
     </div>
 
 </div>
 </section>
 
+<!-- FULL SCREEN VIDEO PLAYER -->
+
+<div id="videoModal" class="video-modal" hidden>
+
+    <div class="video-modal-header">
+        <h3 id="videoTitle">Video Presentation</h3>
+
+        <button class="close-video"
+            onclick="closeVideo()"
+            aria-label="Close video">
+            ✕
+        </button>
+    </div>
+
+    <div class="video-screen">
+
+        <video id="mainVideo"
+            controls
+            playsinline
+            preload="metadata">
+        </video>
+
+    </div>
+
+</div>
+
+    
 
 <!-- MY CV SECTION -->
 
@@ -1119,6 +1175,49 @@ function closePresentation() {
 
     document.getElementById("pptFrame").src = "";
 }
+
+// FULL SCREEN VIDEO PLAYER
+
+const videoModal = document.getElementById("videoModal");
+const mainVideo = document.getElementById("mainVideo");
+const videoTitle = document.getElementById("videoTitle");
+
+function playVideo(file, title) {
+
+    mainVideo.pause();
+
+    mainVideo.src = "./" + file;
+    videoTitle.textContent = title;
+
+    videoModal.hidden = false;
+
+    document.body.style.overflow = "hidden";
+
+    mainVideo.load();
+
+    mainVideo.play().catch(() => {
+        // User can press Play if autoplay is blocked.
+    });
+}
+
+function closeVideo() {
+
+    mainVideo.pause();
+    mainVideo.removeAttribute("src");
+    mainVideo.load();
+
+    videoModal.hidden = true;
+
+    document.body.style.overflow = "";
+}
+
+// Close with Escape key
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape" && !videoModal.hidden) {
+        closeVideo();
+    }
+});
 
 </script>
 
