@@ -12,15 +12,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 :root {
-    --bg: #080b16;
-    --card: #111827;
-    --text: #f8fafc;
-    --muted: #9ca3af;
-    --purple: #8b5cf6;
-    --blue: #3b82f6;
-    --border: rgba(255,255,255,.09);
+    --bg: #101114;
+    --card: #191b20;
+    --text: #ffffff;
+    --muted: #a5a9b3;
+    --purple: #4388ff;
+    --blue: #78baff;
+    --border: rgba(255,255,255,.12);
 }
+
 
 * {
     margin: 0;
@@ -692,6 +694,80 @@ footer p + p {
     .video-screen {
         padding: 5px;
     }
+}
+
+/* COLOUR CHANGES ONLY */
+
+body {
+    background-color: #101114;
+    color: #ffffff;
+}
+
+header {
+    background-color: #101114;
+}
+
+.nav-links a:hover {
+    color: #4388ff;
+}
+
+.badge {
+    color: #78baff;
+    background-color: rgba(67,136,255,.12);
+    border-color: rgba(67,136,255,.35);
+}
+
+.gradient-text {
+    background: linear-gradient(90deg,#4388ff,#78baff);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg,#4388ff,#286ee8);
+    color: #ffffff;
+}
+
+.small-title,
+.project-number {
+    color: #4388ff;
+}
+
+.about-text,
+.info-card,
+.skill-card,
+.project-card,
+.contact-card,
+.viewer-area {
+    background-color: #191b20;
+    border-color: #30343d;
+}
+
+.skill-card:hover,
+.project-card:hover {
+    background-color: #222631;
+    border-color: #4388ff;
+}
+
+.video-folder-card {
+    background-color: #191d26;
+    border-color: #30343d;
+    color: #ffffff;
+}
+
+.video-folder-card:hover {
+    background-color: #252c39;
+    border-color: #4388ff;
+}
+
+.play-icon {
+    background-color: #4388ff;
+    color: #ffffff;
+}
+
+footer {
+    background-color: #0b0d11;
+    color: #a5a9b3;
 }
 
 
