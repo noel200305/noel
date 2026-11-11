@@ -511,46 +511,57 @@ footer p + p {
         text-align: left;
     }
 }
-    
-/* POWERPOINT VIEWER */
 
-.presentation-viewers {
-    margin-top: 60px;
-    display: grid;
-    gap: 45px;
-}
+/* PRESENTATION VIEWER */
 
-.viewer-card {
+.viewer-area {
+    margin-top: 45px;
+    padding: 20px;
     background: #111827;
-    border: 1px solid rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.1);
     border-radius: 18px;
-    padding: 25px;
     scroll-margin-top: 100px;
 }
 
-.viewer-card h3 {
-    margin-bottom: 20px;
-    font-size: 22px;
+.viewer-area[hidden] {
+    display: none !important;
 }
 
-.viewer-card iframe {
-    display: block;
+.viewer-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.close-viewer {
+    background: #27233e;
+    color: white;
+    border: 1px solid #8b5cf6;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.viewer-area iframe {
     width: 100%;
-    height: 550px;
+    height: 600px;
     border: none;
     border-radius: 10px;
     background: white;
 }
 
-@media(max-width:650px) {
-    .viewer-card {
-        padding: 12px;
+@media(max-width:600px) {
+    .viewer-area {
+        padding: 10px;
     }
 
-    .viewer-card iframe {
-        height: 350px;
+    .viewer-area iframe {
+        height: 400px;
     }
 }
+    
 
 </style>
 </head>
@@ -795,77 +806,56 @@ footer p + p {
             <div class="project-number">PRESENTATION 01</div>
             <h3>Intermediate HTML & CSS</h3>
             <p>Course overview, HTML structure and CSS styling.</p>
-            <a class="btn btn-primary"
-               href="#presentation1">
-               View Presentation →
-            </a>
+            <button class="btn btn-primary"
+                onclick="openPresentation('presentation1')">
+                View Presentation →
+            </button>
         </div>
 
         <div class="project-card">
             <div class="project-number">PRESENTATION 02</div>
             <h3>Advanced HTML & CSS</h3>
             <p>Responsive layouts and modern web design.</p>
-            <a class="btn btn-primary"
-               href="#presentation2">
-               View Presentation →
-            </a>
+            <button class="btn btn-primary"
+                onclick="openPresentation('presentation2')">
+                View Presentation →
+            </button>
         </div>
 
         <div class="project-card">
             <div class="project-number">PRESENTATION 03</div>
             <h3>JavaScript</h3>
             <p>JavaScript fundamentals and interactive websites.</p>
-            <a class="btn btn-primary"
-               href="#presentation3">
-               View Presentation →
-            </a>
+            <button class="btn btn-primary"
+                onclick="openPresentation('presentation3')">
+                View Presentation →
+            </button>
         </div>
 
     </div>
 
-    <!-- PRESENTATION VIEWERS -->
+    <!-- VIEWER AREA -->
 
-    <div class="presentation-viewers">
+    <div id="presentationViewer" class="viewer-area" hidden>
 
-        <div class="viewer-card" id="presentation1">
-            <h3>Intermediate HTML & CSS</h3>
-            <iframe
-                src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fnoel200305.github.io%2Fnoelthomas%2Fintermediate-html-css.pptx"
-                width="100%"
-                height="550"
-                frameborder="0"
-                allowfullscreen>
-            </iframe>
+        <div class="viewer-heading">
+            <h3 id="viewerTitle">Presentation</h3>
+            <button class="close-viewer"
+                onclick="closePresentation()">✕ Close</button>
         </div>
 
-        <div class="viewer-card" id="presentation2">
-            <h3>Advanced HTML & CSS</h3>
-            <iframe
-                src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fnoel200305.github.io%2Fnoelthomas%2Fadvanced-html-css.pptx"
-                width="100%"
-                height="550"
-                frameborder="0"
-                allowfullscreen>
-            </iframe>
-        </div>
-
-        <div class="viewer-card" id="presentation3">
-            <h3>JavaScript</h3>
-            <iframe
-                src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fnoel200305.github.io%2Fnoelthomas%2Fjavascript.pptx"
-                width="100%"
-                height="550"
-                frameborder="0"
-                allowfullscreen>
-            </iframe>
-        </div>
+        <iframe id="pptFrame"
+            title="PowerPoint presentation"
+            width="100%"
+            height="600"
+            allowfullscreen>
+        </iframe>
 
     </div>
 
 </div>
 </section>
-
-
+    
 <!-- CONTACT -->
 
 <section id="contact">
@@ -930,6 +920,58 @@ document.querySelectorAll(".nav-links a").forEach(link => {
 
 document.getElementById("year").textContent =
     new Date().getFullYear();
+    
+const presentations = {
+    presentation1: {
+        title: "Intermediate HTML & CSS",
+        file: "intermediate-html-css.pptx"
+    },
+    presentation2: {
+        title: "Advanced HTML & CSS",
+        file: "advanced-html-css.pptx"
+    },
+    presentation3: {
+        title: "JavaScript",
+        file: "javascript.pptx"
+    }
+};
+
+function openPresentation(id) {
+    const item = presentations[id];
+
+    if (!item) return;
+
+    const fileURL = new URL(
+        item.file,
+        window.location.href
+    ).href;
+
+    const viewerURL =
+        "https://view.officeapps.live.com/op/embed.aspx?src=" +
+        encodeURIComponent(fileURL);
+
+    document.getElementById("viewerTitle").textContent =
+        item.title;
+
+    document.getElementById("pptFrame").src = viewerURL;
+
+    const viewer = document.getElementById("presentationViewer");
+    viewer.hidden = false;
+
+    viewer.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+function closePresentation() {
+    const viewer = document.getElementById("presentationViewer");
+
+    viewer.hidden = true;
+
+    document.getElementById("pptFrame").src = "";
+}
+
 </script>
 
 </body>
