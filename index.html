@@ -561,7 +561,61 @@ footer p + p {
         height: 400px;
     }
 }
-    
+ 
+/* VIDEO PRESENTATIONS */
+
+#videos .video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.video-card {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 18px;
+    padding: 25px;
+    transition: .3s;
+}
+
+.video-card:hover {
+    border-color: #8b5cf6;
+    transform: translateY(-4px);
+}
+
+.video-number {
+    color: #8b5cf6;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.video-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.video-card p {
+    color: #9ca3af;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.video-card video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #000;
+    border-radius: 12px;
+}
+
+@media(max-width:750px) {
+    #videos .video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+   
 
 </style>
 </head>
@@ -589,6 +643,7 @@ footer p + p {
         <li><a href="#skills">Skills</a></li>
         <li><a href="#mycv">My CV</a></li>
         <li><a href="#presentations">Presentations</a></li>
+        <li><a href="#videos">Video Presentations</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
 
