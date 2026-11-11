@@ -511,6 +511,47 @@ footer p + p {
         text-align: left;
     }
 }
+    
+/* POWERPOINT VIEWER */
+
+.presentation-viewers {
+    margin-top: 60px;
+    display: grid;
+    gap: 45px;
+}
+
+.viewer-card {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 18px;
+    padding: 25px;
+    scroll-margin-top: 100px;
+}
+
+.viewer-card h3 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.viewer-card iframe {
+    display: block;
+    width: 100%;
+    height: 550px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+}
+
+@media(max-width:650px) {
+    .viewer-card {
+        padding: 12px;
+    }
+
+    .viewer-card iframe {
+        height: 350px;
+    }
+}
+
 </style>
 </head>
 
